@@ -1,23 +1,28 @@
-# Dataset configurations for TrustOCT
+# TrustOCT Dataset Configuration File
 
-train_dataset: "kermany"
-train_path: "datasets/raw/kermany"
+dataset:
+  name: "Kermany OCT2017"
 
-validation_split: 0.2
-seed: 42
+paths:
+  train: "datasets/raw/Kermany/train"
+  val: "datasets/raw/Kermany/val"
+  test: "datasets/raw/Kermany/test"
 
-external_datasets:
-  octdl:
-    path: "datasets/raw/octdl"
-    enabled: true
-  nehut:
-    path: "datasets/raw/nehut"
-    enabled: true
-  octid:
-    path: "datasets/raw/octid"
-    enabled: false
+classes:
+  - "CNV"
+  - "DME"
+  - "DRUSEN"
+  - "NORMAL"
 
-dataloader:
+image:
+  channels: "RGB"
+  extensions:
+    - ".jpeg"
+    - ".jpg"
+    - ".png"
+
+loader:
   batch_size: 32
   num_workers: 4
   pin_memory: true
+  shuffle: true
