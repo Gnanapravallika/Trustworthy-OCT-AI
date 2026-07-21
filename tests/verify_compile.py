@@ -31,7 +31,7 @@ def verify_pipeline():
     
     mock_images = torch.randn(2, 3, 224, 224)
     logits = model_softmax(mock_images)
-    print(f"✓ ResNet50-Softmax output shape: {list(logits.shape)}")
+    print(f"[OK] ResNet50-Softmax output shape: {list(logits.shape)}")
     assert logits.shape == (2, 4), "Logits shape mismatch"
 
     # 2. Test evidential (EDL) variant with Multi-scale + CBAM + MixStyle
@@ -47,7 +47,7 @@ def verify_pipeline():
     )
     
     evidence, alpha = model_edl(mock_images)
-    print(f"✓ TrustOCT-EDL output shapes:")
+    print(f"[OK] TrustOCT-EDL output shapes:")
     print(f"    - Evidence: {list(evidence.shape)}")
     print(f"    - Alpha:    {list(alpha.shape)}")
     assert evidence.shape == (2, 4) and alpha.shape == (2, 4), "Evidence/Alpha shape mismatch"
@@ -59,11 +59,11 @@ def verify_pipeline():
     targets = torch.tensor([0, 1])
     criterion = EdlLoss(num_classes=4, annealing_epochs=10)
     loss = criterion(alpha, targets, epoch=2)
-    print(f"✓ EDL loss value: {loss.item():.4f}")
+    print(f"[OK] EDL loss value: {loss.item():.4f}")
     
     # Backward pass check
     loss.backward()
-    print("✓ Loss backward propagation complete (No NaNs/Infs)")
+    print("[OK] Loss backward propagation complete (No NaNs/Infs)")
 
     # 4. Test Model Registry Builder compilation
     print("Testing builder.py configuration reading and parsing...")
@@ -71,7 +71,7 @@ def verify_pipeline():
     temp_cfg = "configs/model.yaml"
     model_from_cfg = build_model(temp_cfg)
     assert isinstance(model_from_cfg, TrustOCT), "Builder did not return TrustOCT instance"
-    print("✓ Model Builder verified")
+    print("[OK] Model Builder verified")
     
     print("=" * 60)
     print("All integration compiles completed successfully!")
