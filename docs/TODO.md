@@ -5,16 +5,14 @@
 | :--- | :--- | :--- |
 | **T001** | Repository Setup & Skeleton | ✅ Completed |
 | **T002** | Configuration System | ✅ Completed |
-| **T003** | Dataset Verification (`verify.py`) | ✅ Completed |
-| **T004** | Dataset Statistics (`statistics.py`) | ✅ Completed |
-| **T005** | Dataset Class (`kermany.py` / `base_dataset.py`) | ✅ Completed |
-| **T006** | DataLoader & Factory (`loader.py` / `factory.py`) | ✅ Completed |
-| **T007** | Custom transforms (`transforms.py`) | ✅ Completed |
-| **T008** | Unit Tests (`tests/test_pipeline.py`) | ✅ Completed |
-| **T009** | Model Architectures (`backbone.py` / `cbam.py` / `multiscale.py` / `mixstyle.py` / `trustoct.py`) | ✅ Completed |
-| **T010** | Loss Functions & Trainer Engine (`losses.py` / `trainer.py`) | ✅ Completed |
-| **T011** | Model Registry Builder (`builder.py`) | ✅ Completed |
-| **T012** | Baseline Training & Ablations (Colab GPU) | ⏳ Pending |
+| **T003** | Dataset Validation & Prep (`datasets.py`) | ✅ Completed |
+| **T004** | Augmentation Preprocessing (`preprocessing.py`) | ✅ Completed |
+| **T005** | Swappable Architecture & Registry (`models.py` / `heads.py`) | ✅ Completed |
+| **T006** | Loss Functions & Training Engine (`losses.py` / `trainer.py` / `train.py`) | ✅ Completed |
+| **T007** | Evaluation & Explainability (`evaluation.py` / `explainability.py`) | ✅ Completed |
+| **T008** | Plotting Utilities (`plots.py`) | ✅ Completed |
+| **T009** | Unit Tests (`tests/test_pipeline.py`) | ✅ Completed |
+| **T010** | Baseline Training & Ablations (Colab GPU) | ⏳ Pending |
 
 ---
 
@@ -25,16 +23,16 @@
 - [x] Write `requirements.txt` and configs templates
 
 ## Phase 2: Pipeline Development (Completed ✅)
-- [x] Set up data preprocessing (Bilateral filter, CLAHE) in `src/preprocessing/`
-- [x] Set up dataset loaders in `src/datasets/`
+- [x] Set up data preprocessing (Bilateral filter, CLAHE) in `src/preprocessing.py`
+- [x] Set up dataset loaders in `src/datasets.py`
 - [x] Implement unit tests and verify pipeline in `tests/test_pipeline.py`
 - [x] Create master Google Colab setup notebook ([TrustOCT_Setup.ipynb](file:///e:/Trustworthy-OCT-AI/notebooks/TrustOCT_Setup.ipynb))
 
 ## Phase 3: Model Training & Baselines (Active ⏳)
-- [x] Implement backbone modules and head classes in `src/models/`
-- [x] Implement builder registry in `src/registry/`
-- [x] Write evidential loss function in `src/losses/`
-- [x] Write training and trainer loop in `src/train/`
+- [x] Implement backbone, attention, generalization, and assembler modules in `src/models.py`
+- [x] Implement prediction head classes in `src/heads.py`
+- [x] Write evidential loss function in `src/losses.py`
+- [x] Write training loop in `src/trainer.py` and master runner in `train.py`
 - [ ] Execute Baseline training (EXP001)
 - [ ] Execute Ablation studies (EXP002 - EXP006)
 - [ ] Execute Proposed TrustOCT training (EXP007)
@@ -44,5 +42,6 @@
 - [ ] Produce plots and reliability diagrams in `paper/figures/`
 - [ ] Format classification tables in `paper/tables/`
 - [ ] Compile explainability outputs (LayerCAM vs Grad-CAM)
+
 
 
