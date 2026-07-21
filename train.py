@@ -16,8 +16,8 @@ project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
 
 from src.models import build_model
-from src.datasets import get_dataset_and_loader
-from src.trainer import Trainer
+from src.dataset import get_dataset_and_loader
+from src.training import Trainer
 
 
 def parse_args():

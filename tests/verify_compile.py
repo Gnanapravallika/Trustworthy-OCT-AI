@@ -8,7 +8,7 @@ import torch
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.models import TrustOCT, build_model
-from src.losses import EdlLoss
+from src.training import EdlLoss
 
 
 def verify_pipeline():

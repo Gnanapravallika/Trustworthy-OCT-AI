@@ -11,7 +11,7 @@ import torchvision.models as models
 from torchvision.models import ResNet50_Weights
 
 # Relative import of heads from same src directory
-from src.heads import SoftmaxHead, EvidentialHead
+from src.models.heads import SoftmaxHead, EvidentialHead
 
 
 # =====================================================================
