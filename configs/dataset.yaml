@@ -4,9 +4,9 @@ dataset:
   name: "Kermany OCT2017"
 
 paths:
-  train: "datasets/raw/Kermany/train"
-  val: "datasets/raw/Kermany/val"
-  test: "datasets/raw/Kermany/test"
+  train: "datasets/Kermany/OCT2017 /train"
+  val: "datasets/Kermany/OCT2017 /val"
+  test: "datasets/Kermany/OCT2017 /test"
 
 classes:
   - "CNV"
