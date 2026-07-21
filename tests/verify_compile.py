@@ -7,14 +7,13 @@ import torch
 # Ensure src is in python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.models.trustoct import TrustOCT
-from src.losses.losses import EdlLoss
-from src.registry.builder import build_model
+from src.models import TrustOCT, build_model
+from src.losses import EdlLoss
 
 
 def verify_pipeline():
     print("=" * 60)
-    print("TrustOCT Compilation & Integration Verification")
+    print("TrustOCT Compilation & Integration Verification (Consolidated)")
     print("=" * 60)
 
     # 1. Test standard tensor forward pass through ResNet50-Softmax
@@ -67,7 +66,6 @@ def verify_pipeline():
 
     # 4. Test Model Registry Builder compilation
     print("Testing builder.py configuration reading and parsing...")
-    # Create temp config file path
     temp_cfg = "configs/model.yaml"
     model_from_cfg = build_model(temp_cfg)
     assert isinstance(model_from_cfg, TrustOCT), "Builder did not return TrustOCT instance"

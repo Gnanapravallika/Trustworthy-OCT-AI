@@ -3,17 +3,14 @@
 import argparse
 import os
 import sys
-import yaml
 
-try:
-    from src.registry.builder import build_model
-    from src.datasets.factory import get_dataset_and_loader
-    from src.train.trainer import Trainer
-except ImportError:
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-    from src.registry.builder import build_model
-    from src.datasets.factory import get_dataset_and_loader
-    from src.train.trainer import Trainer
+# Add project root to python path
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(project_root)
+
+from src.models import build_model
+from src.datasets import get_dataset_and_loader
+from src.trainer import Trainer
 
 
 def parse_args():
@@ -55,8 +52,6 @@ def parse_args():
 def main():
     """Execute model training pipeline."""
     args = parse_args()
-    
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
     
     # Resolve config paths relative to project root
     dataset_cfg_path = os.path.join(project_root, args.dataset_config)

@@ -8,13 +8,17 @@ import pytest
 import torch
 import yaml
 
-from src.datasets.constants import CLASS_NAMES, CLASS_TO_INDEX
-from src.datasets.kermany import KermanyDataset
-from src.datasets.loader import create_dataloader
-from src.datasets.verify import generate_dataset_report, verify_dataset
-from src.preprocessing.transforms import get_train_transforms, get_val_transforms
-from src.models.trustoct import TrustOCT
-from src.losses.losses import EdlLoss
+from src.datasets import (
+    CLASS_NAMES,
+    CLASS_TO_INDEX,
+    KermanyDataset,
+    create_dataloader,
+    generate_dataset_report,
+    verify_dataset
+)
+from src.preprocessing import get_train_transforms, get_val_transforms
+from src.models import TrustOCT
+from src.losses import EdlLoss
 
 
 @pytest.fixture
@@ -126,7 +130,6 @@ def test_dataloader_creation(mock_dataset_dir):
 
 def test_trustoct_model_variants():
     """Verify model forward pass outputs and shapes under multiple configurations."""
-    # Test batch size of 2, 3 color channels, 224x224 input
     mock_input = torch.randn(2, 3, 224, 224)
 
     # 1. Test Evidential (EDL) variant with Multi-scale + CBAM + MixStyle
@@ -173,6 +176,5 @@ def test_edl_loss():
     assert isinstance(loss, torch.Tensor)
     assert loss.dim() == 0  # scalar
     
-    # Verify gradient backprop works
     loss.backward()
     assert alpha.grad is not None

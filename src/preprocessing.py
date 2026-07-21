@@ -1,8 +1,5 @@
 """Bilateral filter, CLAHE and normalization transformations for TrustOCT."""
 
-import os
-import sys
-from typing import Dict
 import cv2
 import numpy as np
 import albumentations as A
@@ -27,20 +24,10 @@ class BilateralFilter(ImageOnlyTransform):
         self.sigma_space = sigma_space
 
     def apply(self, img: np.ndarray, **params) -> np.ndarray:
-        """Apply bilateral filtering to image.
-
-        Args:
-            img: Input image array of shape [H, W, C].
-
-        Returns:
-            Denoised image.
-        """
-        # OpenCV bilateralFilter requires uint8
         if img.dtype != np.uint8:
             img_uint8 = (img * 255.0).astype(np.uint8)
             denoised = cv2.bilateralFilter(img_uint8, self.d, self.sigma_color, self.sigma_space)
             return (denoised / 255.0).astype(np.float32)
-        
         return cv2.bilateralFilter(img, self.d, self.sigma_color, self.sigma_space)
 
     def get_transform_init_args_names(self):
@@ -48,22 +35,14 @@ class BilateralFilter(ImageOnlyTransform):
 
 
 def get_train_transforms(config: dict) -> A.Compose:
-    """Build train transformation pipeline based on YAML configuration.
-
-    Args:
-        config: Combined config dictionary.
-
-    Returns:
-        Albumentations composition of transforms.
-    """
+    """Build train transformation pipeline based on YAML configuration."""
     preprocessing_cfg = config.get("preprocessing", {})
     augmentations_cfg = config.get("augmentations", {})
-
     resize_h, resize_w = preprocessing_cfg.get("resize", [224, 224])
     
     transform_list = []
 
-    # 1. Bilateral Denoising (Optional)
+    # 1. Bilateral Denoising
     bf_cfg = preprocessing_cfg.get("bilateral_filter", {})
     if bf_cfg.get("enabled", True):
         transform_list.append(
@@ -75,7 +54,7 @@ def get_train_transforms(config: dict) -> A.Compose:
             )
         )
 
-    # 2. Contrast Enhancement CLAHE (Optional)
+    # 2. Contrast Enhancement CLAHE
     clahe_cfg = preprocessing_cfg.get("clahe", {})
     if clahe_cfg.get("enabled", True):
         transform_list.append(
@@ -124,22 +103,14 @@ def get_train_transforms(config: dict) -> A.Compose:
 
 
 def get_val_transforms(config: dict) -> A.Compose:
-    """Build validation/testing transformation pipeline (no stochastic augmentations).
-
-    Args:
-        config: Combined config dictionary.
-
-    Returns:
-        Albumentations composition of transforms.
-    """
+    """Build validation/testing transformation pipeline (no augmentations)."""
     preprocessing_cfg = config.get("preprocessing", {})
     augmentations_cfg = config.get("augmentations", {})
-
     resize_h, resize_w = preprocessing_cfg.get("resize", [224, 224])
     
     transform_list = []
 
-    # 1. Bilateral Denoising (Optional)
+    # 1. Bilateral Denoising
     bf_cfg = preprocessing_cfg.get("bilateral_filter", {})
     if bf_cfg.get("enabled", True):
         transform_list.append(
@@ -151,7 +122,7 @@ def get_val_transforms(config: dict) -> A.Compose:
             )
         )
 
-    # 2. Contrast Enhancement CLAHE (Optional)
+    # 2. Contrast Enhancement CLAHE
     clahe_cfg = preprocessing_cfg.get("clahe", {})
     if clahe_cfg.get("enabled", True):
         transform_list.append(
